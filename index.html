@@ -1,18 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <title>My p5.js Sketch</title>
+    <meta charset="utf-8" />
 
-    <!-- Load p5.js from CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
-    <!-- Optional: p5.sound -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js"></script>
+    <!-- p5.js -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.13/lib/p5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.13/lib/addons/p5.sound.min.js"></script>
 
-    <!-- Load your sketch -->
-    <script src="sketch.js"></script>
+    <!-- Vimeo Player API -->
+    <script src="https://player.vimeo.com/api/player.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
 
   <body>
+
+    <!-- Vimeo Player Container -->
+    <div id="vimeo-container">
+      <iframe
+        id="vimeo-player"
+        src="https://player.vimeo.com/video/833409111?h=31f4d4cb90"
+        width="640"
+        height="360"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+    <main></main>
+
+    <script src="timestamps.js"></script>
+    <script src="sketch.js"></script>
+
   </body>
 </html>
