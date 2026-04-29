@@ -13,7 +13,6 @@ let video_height;
 const video_ratio = 1.777;
 
 function setup() {
-  createCanvas(400,1000)
   iframe = document.getElementById("vimeo-player");
   player = new Vimeo.Player(iframe);
   load_times();
@@ -23,7 +22,6 @@ function setup() {
 }
 
 function draw() {
-  //background(random()*255, random()*255, random()*255)
 }
 
 function create_ui() {
