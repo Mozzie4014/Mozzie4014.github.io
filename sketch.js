@@ -1,5 +1,6 @@
 let iframe;
 let player;
+let ui_scale = 2
 let toolbar = {
   width: 50,
   height: 200,
@@ -13,6 +14,7 @@ let video_height;
 const video_ratio = 1.777;
 
 function setup() {
+  createCanvas(400,1000)
   iframe = document.getElementById("vimeo-player");
   player = new Vimeo.Player(iframe);
   load_times();
@@ -22,6 +24,7 @@ function setup() {
 }
 
 function draw() {
+ // background(random()*255, random()*255, random()*255)
 }
 
 function create_ui() {
@@ -52,7 +55,7 @@ function create_ui() {
 }
 
 function pressed_jump_scene() {
-  jump_to(to_seconds(times[sel.value()].time));
+  jump_to(to_seconds(times[sel.value()].time));0
 }
 
 function pressed_jump_time() {
@@ -83,13 +86,13 @@ function pressed_drop_down() {
 
 function show_toolbar() {
   ui_jump_scene.position(toolbar.posX, toolbar.posY);
-  ui_jump_scene.size(50, 20);
+  ui_jump_scene.size(50*ui_scale, 20*ui_scale);
 
-  sel.position(toolbar.posX + 55, toolbar.posY);
-  inp.position(toolbar.posX + 55, toolbar.posY + 25);
+  sel.position(toolbar.posX + (55*ui_scale), toolbar.posY);
+  inp.position(toolbar.posX + (55*ui_scale), toolbar.posY + (25*ui_scale));
 
-  ui_jump_time.position(toolbar.posX, toolbar.posY + 25);
-  ui_jump_time.size(50, 20);
+  ui_jump_time.position(toolbar.posX, toolbar.posY + (25*ui_scale));
+  ui_jump_time.size(50*ui_scale, 20*ui_scale);
   toolbar.visible = true;
 }
 
@@ -105,6 +108,15 @@ function hide_toolbar() {
   toolbar.visible = false;
 }
 
+function resize_video(w) {
+  
+  video_width = w; // video width
+  video_height = video_width / video_ratio;
+
+  iframe.style.width = video_width + "px";
+  iframe.style.height = video_height + "px";
+}
+
 function scale_elements() {
   video_width = windowWidth; // video width
   video_height = video_width / video_ratio;
@@ -118,4 +130,15 @@ function scale_elements() {
   inp.position(20, video_height + 40);
   ui_jump_time.position(sel.size().width + 20, video_height + 40);
   inp.size(sel.size().width - 7, 20);
+}
+
+function config_mobile_landscape() {
+  resize_video(3840)
+  toolbar.posX = 3850
+}
+
+function windowResized() {
+  if (deviceOrientation == "landscape") {
+    config_mobile_landscape()
+  }
 }
