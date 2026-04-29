@@ -13,6 +13,7 @@ let video_height;
 const video_ratio = 1.777;
 
 function setup() {
+  createCanvas(400,1000)
   iframe = document.getElementById("vimeo-player");
   player = new Vimeo.Player(iframe);
   load_times();
@@ -21,7 +22,9 @@ function setup() {
   hide_toolbar();
 }
 
-function draw() {}
+function draw() {
+  background(random()*255, random()*255, random()*255)
+}
 
 function create_ui() {
   ui_drop_down = createButton("Tools");
