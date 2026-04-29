@@ -1,5 +1,12 @@
 let iframe;
 let player;
+let toolbar = {
+  width: 50,
+  height: 200,
+  visible: false,
+  posX: 0,
+  posY: 25,
+};
 var render_scale = 10;
 let video_width;
 let video_height;
@@ -10,12 +17,17 @@ function setup() {
   player = new Vimeo.Player(iframe);
   load_times();
   create_ui();
-  scale_elements();
+  // scale_elements();
 }
 
 function draw() {}
 
 function create_ui() {
+  ui_drop_down = createButton("Tools");
+  ui_drop_down.position(0, 0);
+  ui_drop_down.size();
+  ui_drop_down.mousePressed(pressed_drop_down);
+
   sel = createSelect("Select Entrance");
   sel.position(0, 400);
 
@@ -27,7 +39,7 @@ function create_ui() {
   ui_jump_time.size();
   ui_jump_time.mousePressed(pressed_jump_time);
 
-  ui_jump_scene = createButton("Jump to scene");
+  ui_jump_scene = createButton("Jump");
   ui_jump_scene.position(0, 420);
   ui_jump_scene.size();
   ui_jump_scene.mousePressed(pressed_jump_scene);
@@ -59,6 +71,38 @@ function to_seconds(string) {
   return time;
 }
 
+function pressed_drop_down() {
+  if (!toolbar.visible) {
+    show_toolbar();
+  } else if (toolbar.visible) {
+    hide_toolbar();
+  }
+}
+
+function show_toolbar() {
+  ui_jump_scene.position(toolbar.posX, toolbar.posY);
+  ui_jump_scene.size(50, 20);
+
+  sel.position(toolbar.posX + 55, toolbar.posY);
+  inp.position(toolbar.posX + 55, toolbar.posY + 25);
+
+  ui_jump_time.position(toolbar.posX, toolbar.posY + 25);
+  ui_jump_time.size(50, 20);
+  toolbar.visible = true;
+}
+
+function hide_toolbar() {
+  ui_jump_scene.position(10000, 10000);
+  ui_jump_scene.size(0, 0);
+
+  sel.position(10000, 10000);
+  inp.position(10000, 10000);
+
+  ui_jump_time.position(10000, 10000);
+  ui_jump_time.size(0, 0);
+  toolbar.visible = false;
+}
+
 function scale_elements() {
   video_width = displayWidth; // video width
   video_height = video_width / video_ratio;
@@ -72,6 +116,4 @@ function scale_elements() {
   inp.position(20, video_height + 40);
   ui_jump_time.position(sel.size().width + 20, video_height + 40);
   inp.size(sel.size().width - 7, 20);
-  //sel.size().width
-  // sel.size(20,40)
 }
