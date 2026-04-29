@@ -133,12 +133,21 @@ function scale_elements() {
 }
 
 function config_mobile_landscape() {
-  resize_video(3840)
-  toolbar.posX = 3850
+  resize_video(3500)
+  toolbar.posX = 3510
 }
 
 function windowResized() {
+  hide_toolbar()
   if (deviceOrientation == "landscape") {
     config_mobile_landscape()
   }
+  if (deviceOrientation == "portrait") {
+    config_mobile_portrait()
+  }
+}
+
+function config_mobile_portrait() {
+  resize_video(1920)
+  toolbar.posX = 0
 }
