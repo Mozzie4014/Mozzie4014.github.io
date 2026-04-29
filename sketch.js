@@ -30,18 +30,18 @@ function create_ui() {
   ui_drop_down.mousePressed(pressed_drop_down);
 
   sel = createSelect("Select Entrance");
-  sel.position(0, 400);
+  sel.position(10000,10000);
 
   inp = createInput();
   inp.value("0:45:2");
 
   ui_jump_time = createButton("Jump");
-  ui_jump_time.position(0, 490);
+  ui_jump_time.position(10000,10000);
   ui_jump_time.size();
   ui_jump_time.mousePressed(pressed_jump_time);
 
   ui_jump_scene = createButton("Jump");
-  ui_jump_scene.position(0, 420);
+  ui_jump_scene.position(10000, 10000);
   ui_jump_scene.size();
   ui_jump_scene.mousePressed(pressed_jump_scene);
 
