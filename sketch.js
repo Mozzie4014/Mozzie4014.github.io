@@ -17,6 +17,7 @@ function setup() {
   player = new Vimeo.Player(iframe);
   load_times();
   create_ui();
+  show_toolbar();
   hide_toolbar();
 }
 
