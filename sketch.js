@@ -55,7 +55,7 @@ function create_ui() {
 }
 
 function pressed_jump_scene() {
-  jump_to(to_seconds(times[sel.value()].time));0
+  jump_to(to_seconds(times[sel.value()].time));
 }
 
 function pressed_jump_time() {
