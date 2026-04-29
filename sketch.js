@@ -105,7 +105,7 @@ function hide_toolbar() {
 }
 
 function scale_elements() {
-  video_width = displayWidth; // video width
+  video_width = windowWidth; // video width
   video_height = video_width / video_ratio;
 
   iframe.style.width = video_width + "px";
