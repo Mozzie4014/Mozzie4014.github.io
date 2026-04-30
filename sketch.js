@@ -1,6 +1,6 @@
 let iframe;
 let player;
-let ui_scale = 2
+let ui_scale = 4
 let toolbar = {
   width: 50,
   height: 200,
