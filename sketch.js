@@ -1,6 +1,10 @@
+//.             
+const version = "0.3-indev"
+
+
 let iframe;
 let player;
-let ui_scale = 2;
+let ui_scale = 4;
 let toolbar = {
   width: 50,
   height: 200,
@@ -24,6 +28,7 @@ function setup() {
 }
 
 function draw() {
+  text(version, 0,0)
   // background(random()*255, random()*255, random()*255)
 }
 
