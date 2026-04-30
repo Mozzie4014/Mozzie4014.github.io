@@ -1,12 +1,12 @@
 let iframe;
 let player;
-let ui_scale = 4
+let ui_scale = 2;
 let toolbar = {
   width: 50,
   height: 200,
   visible: false,
   posX: 0,
-  posY: 25,
+  posY: 20 * ui_scale,
 };
 var render_scale = 10;
 let video_width;
@@ -14,7 +14,7 @@ let video_height;
 const video_ratio = 1.777;
 
 function setup() {
-  createCanvas(400,1000)
+  createCanvas(400, 1000);
   iframe = document.getElementById("vimeo-player");
   player = new Vimeo.Player(iframe);
   load_times();
@@ -24,23 +24,23 @@ function setup() {
 }
 
 function draw() {
- // background(random()*255, random()*255, random()*255)
+  // background(random()*255, random()*255, random()*255)
 }
 
 function create_ui() {
   ui_drop_down = createButton("Tools");
   ui_drop_down.position(0, 0);
-  ui_drop_down.size();
+  ui_drop_down.size(60 * ui_scale, 20 * ui_scale);
   ui_drop_down.mousePressed(pressed_drop_down);
 
   sel = createSelect("Select Entrance");
-  sel.position(10000,10000);
+  sel.position(10000, 10000);
 
   inp = createInput();
   inp.value("0:45:2");
 
   ui_jump_time = createButton("Jump");
-  ui_jump_time.position(10000,10000);
+  ui_jump_time.position(10000, 10000);
   ui_jump_time.size();
   ui_jump_time.mousePressed(pressed_jump_time);
 
@@ -86,13 +86,13 @@ function pressed_drop_down() {
 
 function show_toolbar() {
   ui_jump_scene.position(toolbar.posX, toolbar.posY);
-  ui_jump_scene.size(50*ui_scale, 20*ui_scale);
+  ui_jump_scene.size(50 * ui_scale, 20 * ui_scale);
 
-  sel.position(toolbar.posX + (55*ui_scale), toolbar.posY);
-  inp.position(toolbar.posX + (55*ui_scale), toolbar.posY + (25*ui_scale));
+  sel.position(toolbar.posX + 55 * ui_scale, toolbar.posY);
+  inp.position(toolbar.posX + 55 * ui_scale, toolbar.posY + 25 * ui_scale);
 
-  ui_jump_time.position(toolbar.posX, toolbar.posY + (25*ui_scale));
-  ui_jump_time.size(50*ui_scale, 20*ui_scale);
+  ui_jump_time.position(toolbar.posX, toolbar.posY + 25 * ui_scale);
+  ui_jump_time.size(50 * ui_scale, 20 * ui_scale);
   toolbar.visible = true;
 }
 
@@ -109,7 +109,6 @@ function hide_toolbar() {
 }
 
 function resize_video(w) {
-  
   video_width = w; // video width
   video_height = video_width / video_ratio;
 
@@ -133,21 +132,21 @@ function scale_elements() {
 }
 
 function config_mobile_landscape() {
-  resize_video(3500)
-  toolbar.posX = 3510
+  resize_video(3500);
+  toolbar.posX = 3510;
 }
 
 function windowResized() {
-  hide_toolbar()
+  hide_toolbar();
   if (deviceOrientation == "landscape") {
-    config_mobile_landscape()
+    config_mobile_landscape();
   }
   if (deviceOrientation == "portrait") {
-    config_mobile_portrait()
+    config_mobile_portrait();
   }
 }
 
 function config_mobile_portrait() {
-  resize_video(1920)
-  toolbar.posX = 0
+  resize_video(1920);
+  toolbar.posX = 0;
 }
