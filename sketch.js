@@ -1,0 +1,193 @@
+//.
+const version = "1.9-indev";
+let selected_scene = 0;
+let iframe;
+let player;
+let ui_scale = 3;
+let toolbar = {
+  width: 50,
+  height: 200,
+  visible: false,
+  posX: 0,
+  posY: 400,
+};
+var render_scale = 1;
+let video_width;
+let video_height;
+const video_ratio = 1.777;
+
+function setup() {
+  createCanvas(400, 1000);
+  iframe = document.getElementById("vimeo-player");
+  player = new Vimeo.Player(iframe);
+  load_scenes();
+  create_ui();
+  show_toolbar();
+  hide_toolbar();
+  selected_scene_changed();
+}
+
+function draw() {
+  text(version, 0, 0);
+  // background(random()*255, random()*255, random()*255)
+}
+
+function create_ui() {
+  ui_drop_down = createButton("Tools");
+  ui_drop_down.position(0, 0);
+  ui_drop_down.size(60 * ui_scale, 20 * ui_scale);
+  ui_drop_down.mousePressed(pressed_drop_down);
+
+  ui_select_scene = createSelect("Select Scene");
+  ui_select_scene.position(10000, 10000);
+  ui_select_scene.changed(selected_scene_changed);
+
+  ui_select_part = createSelect("Select Part");
+  ui_select_part.position(10000, 10000);
+  ui_select_part.changed(selected_part_changed);
+
+  ui_jump_scene = createButton("Jump");
+  ui_jump_scene.position(10000, 10000);
+  ui_jump_scene.size();
+  ui_jump_scene.mousePressed(pressed_jump_scene);
+
+  inp = createInput();
+  inp.value("0:45:2");
+
+  ui_jump_time = createButton("Jump");
+  ui_jump_time.position(10000, 10000);
+  ui_jump_time.size();
+  ui_jump_time.mousePressed(pressed_jump_time);
+
+  for (let i = 0; i < scenes.length; i++) {
+    ui_select_scene.option(scenes[i].name, i);
+  }
+}
+
+function selected_scene_changed() {
+  empty_select();
+  selected_scene = ui_select_scene.value();
+  console.log("changed scene");
+  for (let i = 0; i < scenes[selected_scene].parts.length; i++) {
+    ui_select_part.option(scenes[selected_scene].parts[i].name, i);
+  }
+}
+function selected_part_changed() {
+  console.log("changed part");
+}
+
+function pressed_jump_scene() {
+  jump_to(
+    to_seconds(
+      scenes[ui_select_scene.value()].parts[ui_select_part.value()].start
+    )
+  );
+}
+
+function pressed_jump_time() {
+  jump_to(to_seconds(inp.value()));
+}
+
+function jump_to(time) {
+  player.setCurrentTime(time);
+}
+
+function to_seconds(string) {
+  let s2 = split(string, ":");
+  s2 = float(s2);
+  let time = 0;
+  time += s2[0] * 3600;
+  time += s2[1] * 60;
+  time += s2[2] * 1;
+  return time;
+}
+
+function pressed_drop_down() {
+  if (!toolbar.visible) {
+    show_toolbar();
+  } else if (toolbar.visible) {
+    hide_toolbar();
+  }
+}
+
+function show_toolbar() {
+  toolbar.posY = float(iframe.height);
+  ui_jump_scene.position(toolbar.posX, toolbar.posY);
+  ui_jump_scene.size(50 * ui_scale, 20 * ui_scale);
+
+  ui_select_scene.position(toolbar.posX + 55 * ui_scale, toolbar.posY);
+  ui_select_scene.size(100 * ui_scale, 10 * ui_scale);
+  ui_select_part.position(
+    toolbar.posX + 55 * ui_scale,
+    toolbar.posY + 10 * ui_scale
+  );
+  ui_select_part.size(100 * ui_scale, 10 * ui_scale);
+
+  inp.position(toolbar.posX + 55 * ui_scale, toolbar.posY + 25 * ui_scale);
+  inp.size(97 * ui_scale, 10 * ui_scale);
+
+  ui_jump_time.position(toolbar.posX, toolbar.posY + 25 * ui_scale);
+  ui_jump_time.size(50 * ui_scale, 20 * ui_scale);
+  toolbar.visible = true;
+  //console.log(iframe. height+1)
+}
+
+function hide_toolbar() {
+  ui_jump_scene.position(-10000, -10000);
+  ui_jump_scene.size(0, 0);
+
+  ui_select_scene.position(-10000, -10000);
+  ui_select_part.position(-10000, -10000);
+  inp.position(-10000, -10000);
+
+  ui_jump_time.position(-10000, -10000);
+  ui_jump_time.size(0, 0);
+  toolbar.visible = false;
+}
+
+function resize_video(w) {
+  video_width = w; // video width
+  video_height = video_width / video_ratio;
+
+  iframe.style.width = video_width + "px";
+  iframe.style.height = video_height + "px";
+}
+
+function scale_elements() {
+  video_width = windowWidth; // video width
+  video_height = video_width / video_ratio;
+
+  iframe.style.width = video_width + "px";
+  iframe.style.height = video_height + "px";
+
+  ui_select_scene.position(20, video_height + 10);
+
+  ui_jump_scene.position(sel.size().width + 20, video_height + 10);
+  inp.position(20, video_height + 40);
+  ui_jump_time.position(sel.size().width + 20, video_height + 40);
+  inp.size(sel.size().width - 7, 20);
+}
+
+function config_mobile_landscape() {
+  resize_video(3500);
+  toolbar.posX = 3510;
+}
+
+function windowResized() {
+  hide_toolbar();
+  if (deviceOrientation == "landscape") {
+    config_mobile_landscape();
+  }
+  if (deviceOrientation == "portrait") {
+    config_mobile_portrait();
+  }
+}
+
+function config_mobile_portrait() {
+  resize_video(1920);
+  toolbar.posX = 0;
+}
+
+function empty_select() {
+  ui_select_part.elt.innerHTML = "";
+}
