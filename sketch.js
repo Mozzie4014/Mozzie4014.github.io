@@ -121,6 +121,8 @@ function show_toolbar() {
     toolbar.posX + 55 * ui_scale,
     toolbar.posY + 10 * ui_scale
   );
+  ui_jump_scene.style("font-size",(10*ui_scale)+"px")
+  
   ui_select_part.size(100 * ui_scale, 10 * ui_scale);
 
   inp.position(toolbar.posX + 55 * ui_scale, toolbar.posY + 25 * ui_scale);
