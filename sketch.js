@@ -120,18 +120,18 @@ function show_toolbar() {
 
   ui_select_scene.position(toolbar.posX + 55 * ui_scale, toolbar.posY);
   ui_select_scene.size(100 * ui_scale, 10 * ui_scale);
-  ui_select_scene.style("font-size",(8*ui_scale)+"px")
+  ui_select_scene.style("font-size",(7*ui_scale)+"px")
   
   ui_select_part.position(
     toolbar.posX + 55 * ui_scale,
     toolbar.posY + 10 * ui_scale
   );
   ui_select_part.size(100 * ui_scale, 10 * ui_scale);
-  ui_select_part.style("font-size",(8*ui_scale)+"px")
+  ui_select_part.style("font-size",(7*ui_scale)+"px")
 
   ui_input_time.position(toolbar.posX + 55 * ui_scale, toolbar.posY + 25 * ui_scale);
   ui_input_time.size(97 * ui_scale, 10 * ui_scale);
-  ui_input_time.style("font-size",(8*ui_scale)+"px")
+  ui_input_time.style("font-size",(7*ui_scale)+"px")
 
   ui_jump_time.position(toolbar.posX, toolbar.posY + 25 * ui_scale);
   ui_jump_time.size(50 * ui_scale, 20 * ui_scale);
