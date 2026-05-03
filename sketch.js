@@ -3,7 +3,7 @@ const version = "1.9-indev";
 let selected_scene = 0;
 let iframe;
 let player;
-let ui_scale = 3;
+let ui_scale = 6;
 let toolbar = {
   width: 50,
   height: 200,
@@ -25,7 +25,7 @@ function setup() {
   hide_toolbar();
   selected_scene_changed();
   
-  createCanvas(float(iframe.width), float (iframe. height));
+  createCanvas(float(iframe.width), float (iframe. height)*3);
   background(150)
 }
 
