@@ -1,4 +1,4 @@
-function load_times() {
+function load_times_old() {
   times = [];
 
   times.push({
