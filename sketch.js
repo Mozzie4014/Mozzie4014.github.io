@@ -3,7 +3,7 @@ const version = "1.9-indev";
 let selected_scene = 0;
 let iframe;
 let player;
-let ui_scale = 9;
+let ui_scale = 3;
 let toolbar = {
   width: 50,
   height: 200,
@@ -17,7 +17,6 @@ let video_height;
 const video_ratio = 1.777;
 
 function setup() {
-  createCanvas(400, 1000);
   iframe = document.getElementById("vimeo-player");
   player = new Vimeo.Player(iframe);
   load_scenes();
@@ -25,6 +24,9 @@ function setup() {
   show_toolbar();
   hide_toolbar();
   selected_scene_changed();
+  
+  createCanvas(float(iframe.width), float (iframe. height));
+  background(150)
 }
 
 function draw() {
@@ -51,8 +53,8 @@ function create_ui() {
   ui_jump_scene.size();
   ui_jump_scene.mousePressed(pressed_jump_scene);
 
-  inp = createInput();
-  inp.value("0:45:2");
+  ui_input_time = createInput();
+  ui_input_time.value("0:45:2");
 
   ui_jump_time = createButton("Jump");
   ui_jump_time.position(10000, 10000);
@@ -85,7 +87,7 @@ function pressed_jump_scene() {
 }
 
 function pressed_jump_time() {
-  jump_to(to_seconds(inp.value()));
+  jump_to(to_seconds(ui_input_time.value()));
 }
 
 function jump_to(time) {
@@ -118,20 +120,23 @@ function show_toolbar() {
 
   ui_select_scene.position(toolbar.posX + 55 * ui_scale, toolbar.posY);
   ui_select_scene.size(100 * ui_scale, 10 * ui_scale);
-  ui_select_scene.style("font-size",(10*ui_scale)+"px")
+  ui_select_scene.style("font-size",(8*ui_scale)+"px")
   
   ui_select_part.position(
     toolbar.posX + 55 * ui_scale,
     toolbar.posY + 10 * ui_scale
   );
-  
   ui_select_part.size(100 * ui_scale, 10 * ui_scale);
+  ui_select_part.style("font-size",(8*ui_scale)+"px")
 
-  inp.position(toolbar.posX + 55 * ui_scale, toolbar.posY + 25 * ui_scale);
-  inp.size(97 * ui_scale, 10 * ui_scale);
+  ui_input_time.position(toolbar.posX + 55 * ui_scale, toolbar.posY + 25 * ui_scale);
+  ui_input_time.size(97 * ui_scale, 10 * ui_scale);
+  ui_input_time.style("font-size",(8*ui_scale)+"px")
 
   ui_jump_time.position(toolbar.posX, toolbar.posY + 25 * ui_scale);
   ui_jump_time.size(50 * ui_scale, 20 * ui_scale);
+  ui_jump_time.style("font-size",(10*ui_scale)+"px")
+  
   toolbar.visible = true;
   //console.log(iframe. height+1)
 }
@@ -142,7 +147,7 @@ function hide_toolbar() {
 
   ui_select_scene.position(-10000, -10000);
   ui_select_part.position(-10000, -10000);
-  inp.position(-10000, -10000);
+  ui_input_time.position(-10000, -10000);
 
   ui_jump_time.position(-10000, -10000);
   ui_jump_time.size(0, 0);
@@ -167,9 +172,9 @@ function scale_elements() {
   ui_select_scene.position(20, video_height + 10);
 
   ui_jump_scene.position(sel.size().width + 20, video_height + 10);
-  inp.position(20, video_height + 40);
+  ui_input_time.position(20, video_height + 40);
   ui_jump_time.position(sel.size().width + 20, video_height + 40);
-  inp.size(sel.size().width - 7, 20);
+  ui_input_time.size(sel.size().width - 7, 20);
 }
 
 function config_mobile_landscape() {
