@@ -114,16 +114,16 @@ function show_toolbar() {
   toolbar.posY = float(iframe.height);
   ui_jump_scene.position(toolbar.posX, toolbar.posY);
   ui_jump_scene.size(50 * ui_scale, 20 * ui_scale);
+  ui_jump_scene.style("font-size",(10*ui_scale)+"px")
 
   ui_select_scene.position(toolbar.posX + 55 * ui_scale, toolbar.posY);
   ui_select_scene.size(100 * ui_scale, 10 * ui_scale);
-  ui_select_scene.style("font-size",(8*ui_scale)+"px")
+  ui_select_scene.style("font-size",(10*ui_scale)+"px")
   
   ui_select_part.position(
     toolbar.posX + 55 * ui_scale,
     toolbar.posY + 10 * ui_scale
   );
-  ui_jump_scene.style("font-size",(10*ui_scale)+"px")
   
   ui_select_part.size(100 * ui_scale, 10 * ui_scale);
 
