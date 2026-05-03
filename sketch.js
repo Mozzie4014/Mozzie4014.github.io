@@ -3,7 +3,7 @@ const version = "1.9-indev";
 let selected_scene = 0;
 let iframe;
 let player;
-let ui_scale = 3;
+let ui_scale = 9;
 let toolbar = {
   width: 50,
   height: 200,
